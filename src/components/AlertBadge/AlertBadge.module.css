@@ -1,0 +1,22 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.badge.red { background: var(--alert-frost); }
+.badge.blue { background: var(--alert-water); }
+.badge.green { background: var(--alert-sow); }
+
+.expanded {
+  border-radius: 8px;
+  padding: 4px 10px;
+}

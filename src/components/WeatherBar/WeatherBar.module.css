@@ -1,0 +1,35 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-header);
+  color: #fff;
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  flex-wrap: wrap;
+}
+
+.temp {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-right: var(--space-sm);
+}
+
+.soil {
+  color: #ccc;
+  font-size: var(--text-sm);
+}
+
+.alerts {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.loading {
+  color: #999;
+}

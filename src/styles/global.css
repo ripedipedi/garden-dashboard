@@ -1,0 +1,52 @@
+:root {
+  --bg: #f0ebe3;
+  --bg-card: #ffffff;
+  --bg-header: #3d3426;
+
+  --text: #2d2d2d;
+  --text-muted: #666666;
+  --text-light: #999999;
+
+  --pea: #6B8E23;
+  --carrot: #ED8936;
+  --beet: #9B2335;
+  --zucchini: #2D6A4F;
+  --bean: #38A169;
+  --lettuce: #68D391;
+  --radish: #E53E3E;
+  --chinese-cabbage: #7BAE37;
+  --dill: #B7D96A;
+  --spinach: #3B7A57;
+  --spring-onion: #7CB342;
+  --path: #a08060;
+
+  --alert-frost: #E53E3E;
+  --alert-water: #3182CE;
+  --alert-sow: #38A169;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --text-sm: 0.8rem;
+  --text-base: 0.95rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--text-base);
+  -webkit-font-smoothing: antialiased;
+}

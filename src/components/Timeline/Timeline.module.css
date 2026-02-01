@@ -1,0 +1,58 @@
+.section {
+  padding: var(--space-md);
+  overflow-x: auto;
+}
+
+.title {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.table th, .table td {
+  padding: 0.55rem 0.4rem;
+  text-align: center;
+  position: relative;
+}
+
+.table thead th {
+  background: var(--bg-header);
+  color: #fff;
+  font-size: 0.72rem;
+}
+
+.table thead th:first-child {
+  text-align: left;
+}
+
+.table tbody td:first-child {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+.table tbody tr:nth-child(even) {
+  background: #faf7f2;
+}
+
+.sow { background: #fefcbf; font-weight: 600; }
+.grow { background: #c6f6d5; }
+.harvest { background: #fed7aa; font-weight: 600; }
+
+.todayMarker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--alert-frost);
+  z-index: 1;
+}
