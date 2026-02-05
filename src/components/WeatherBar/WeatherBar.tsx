@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { WeatherData } from "../../utils/weather";
 import type { Alert } from "../../hooks/useAlerts";
 import { AlertBadge } from "../AlertBadge/AlertBadge";
@@ -21,6 +22,8 @@ function weatherIcon(precip: number, minTemp: number): string {
 }
 
 export function WeatherBar({ weather, alerts, loading, error }: Props) {
+  const [forecastOpen, setForecastOpen] = useState(true);
+
   const forecastDays = weather
     ? Array.from({ length: 5 }, (_, i) => {
         const day = new Date();
@@ -41,23 +44,35 @@ export function WeatherBar({ weather, alerts, loading, error }: Props) {
       {weather && (
         <>
           <span className={styles.temp}>{weather.current.temperature.toFixed(0)}°C</span>
-          <span className={styles.soil}>Maa: {weather.current.soilTemp.toFixed(0)}°C</span>
+          <div className={styles.meta}>
+            <span className={styles.soil}>Maa 6cm: {weather.current.soilTemp.toFixed(0)}°C</span>
+            <span className={styles.wind}>Tuuli: {weather.current.windSpeed.toFixed(0)} m/s</span>
+          </div>
           <div className={styles.alerts}>
             {alerts.map((a, i) => (
               <AlertBadge key={i} alert={a} />
             ))}
           </div>
-          <div className={styles.forecast}>
-            {forecastDays.map((d) => (
-              <div key={d.weekday} className={styles.forecastDay}>
-                <span>{d.weekday}</span>
-                <span>{weatherIcon(d.precip, d.minTemp)} {d.high?.toFixed(0)}°</span>
-                {d.precip > 0 && (
-                  <span className={styles.forecastPrecip}>{d.precip.toFixed(0)}mm</span>
-                )}
-              </div>
-            ))}
-          </div>
+          <button
+            className={styles.forecastToggle}
+            onClick={() => setForecastOpen(!forecastOpen)}
+            aria-label={forecastOpen ? "Piilota ennuste" : "Näytä ennuste"}
+          >
+            <span className={`${styles.chevron} ${forecastOpen ? styles.chevronOpen : ""}`}>▾</span>
+          </button>
+          {forecastOpen && (
+            <div className={styles.forecast}>
+              {forecastDays.map((d) => (
+                <div key={d.weekday} className={styles.forecastDay}>
+                  <span>{d.weekday}</span>
+                  <span>{weatherIcon(d.precip, d.minTemp)} {d.high?.toFixed(0)}°</span>
+                  {d.precip > 0 && (
+                    <span className={styles.forecastPrecip}>{d.precip.toFixed(0)}mm</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </>
       )}
     </div>

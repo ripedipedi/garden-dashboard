@@ -1,7 +1,7 @@
 export interface Phase {
   type: "sow" | "grow" | "harvest";
-  start: string;
-  end: string;
+  start: string; // MM-DD format
+  end: string;   // MM-DD format
   label?: string;
 }
 
@@ -19,9 +19,13 @@ export interface Crop {
     sowDepth: string;
     spacing: string;
     watering: string;
+    fertilization: string;
     pests: string;
     harvestTip: string;
   };
+  companions?: { good: string[]; bad: string[] };
+  varieties?: string;
+  secondCrop?: string;
 }
 
 export const crops: Crop[] = [
@@ -34,17 +38,24 @@ export const crops: Crop[] = [
     dimensions: "3,0 m × 0,7 m",
     soilTempMin: 5,
     phases: [
-      { type: "sow", start: "2026-05-20", end: "2026-05-31" },
-      { type: "grow", start: "2026-06-01", end: "2026-07-14" },
-      { type: "harvest", start: "2026-07-15", end: "2026-08-31" },
+      { type: "sow", start: "04-20", end: "05-05", label: "Aikaisin kylvö" },
+      { type: "sow", start: "05-20", end: "05-31" },
+      { type: "grow", start: "06-01", end: "07-14" },
+      { type: "harvest", start: "07-15", end: "08-31" },
     ],
     care: {
       sowDepth: "3–5 cm",
-      spacing: "Rivivali: 20 cm",
+      spacing: "Riviväli: 20 cm",
       watering: "Kohtuullinen, ei liikaa",
-      pests: "Kirva → saippuavesi",
+      fertilization: "Ei tarvetta — sitoo typpeä",
+      pests: "Kirva → saippuavesiruiskutus, tarkista lehdet alta",
       harvestTip: "Poimi säännöllisesti, tuottaa lisää",
     },
+    companions: {
+      good: ["Porkkanat", "Salaatti", "Retiisit"],
+      bad: ["Kesäsipuli"],
+    },
+    varieties: "'Kelvedon Wonder' tai 'Hurst Greenshaft'",
   },
   {
     id: "pinaatti",
@@ -55,20 +66,24 @@ export const crops: Crop[] = [
     dimensions: "1,0 m × 0,7 m",
     soilTempMin: 5,
     phases: [
-      { type: "sow", start: "2026-05-15", end: "2026-05-25" },
-      { type: "grow", start: "2026-05-26", end: "2026-06-19" },
-      { type: "harvest", start: "2026-06-20", end: "2026-07-10" },
-      { type: "sow", start: "2026-07-01", end: "2026-07-10", label: "2. kylvö" },
-      { type: "grow", start: "2026-07-11", end: "2026-08-09" },
-      { type: "harvest", start: "2026-08-10", end: "2026-08-31" },
+      { type: "sow", start: "04-20", end: "05-05", label: "Aikaisin kylvö" },
+      { type: "sow", start: "05-15", end: "05-25" },
+      { type: "grow", start: "05-26", end: "06-19" },
+      { type: "harvest", start: "06-20", end: "07-10" },
+      { type: "sow", start: "07-01", end: "07-10", label: "2. kylvö" },
+      { type: "grow", start: "07-11", end: "08-09" },
+      { type: "harvest", start: "08-10", end: "08-31" },
     ],
     care: {
       sowDepth: "1–2 cm",
-      spacing: "Rivivali: 10 cm",
+      spacing: "Riviväli: 10 cm",
       watering: "Tasainen kosteus",
+      fertilization: "Kompostia istutukseen, ei lisälannoitusta",
       pests: "Lehtiminääjä → poista lehdet",
       harvestTip: "Leikkaa ulkolehdet, sydän kasvaa",
     },
+    companions: { good: ["Herneet", "Salaatti"], bad: [] },
+    varieties: "'Matador' tai 'Bloomsdale'",
   },
   {
     id: "porkkanat",
@@ -79,17 +94,23 @@ export const crops: Crop[] = [
     dimensions: "1,8 m × 1,0 m",
     soilTempMin: 7,
     phases: [
-      { type: "sow", start: "2026-05-15", end: "2026-05-25" },
-      { type: "grow", start: "2026-05-26", end: "2026-08-14" },
-      { type: "harvest", start: "2026-08-15", end: "2026-09-30" },
+      { type: "sow", start: "05-15", end: "05-25" },
+      { type: "grow", start: "05-26", end: "08-14" },
+      { type: "harvest", start: "08-15", end: "09-30" },
     ],
     care: {
       sowDepth: "0,5–1 cm",
-      spacing: "Rivivali: 5 cm",
+      spacing: "Riviväli: 5 cm",
       watering: "Tasainen, ei märkää",
-      pests: "Porkkanakärpänen → harso",
+      fertilization: "Kompostia keväällä, ei tuoretta lantaa (haaroittaa)",
+      pests: "Porkkanakärpänen → harso, tilli viereen (karkottaa)",
       harvestTip: "Nosta kun latvus 1–2 cm",
     },
+    companions: {
+      good: ["Tilli", "Herneet", "Kesäsipuli"],
+      bad: [],
+    },
+    varieties: "'Nantes'-tyyppi tai 'Berlicum'",
   },
   {
     id: "punajuuret",
@@ -100,17 +121,20 @@ export const crops: Crop[] = [
     dimensions: "1,9 m × 1,0 m",
     soilTempMin: 7,
     phases: [
-      { type: "sow", start: "2026-05-15", end: "2026-05-25" },
-      { type: "grow", start: "2026-05-26", end: "2026-08-14" },
-      { type: "harvest", start: "2026-08-15", end: "2026-09-30" },
+      { type: "sow", start: "05-15", end: "05-25" },
+      { type: "grow", start: "05-26", end: "08-14" },
+      { type: "harvest", start: "08-15", end: "09-30" },
     ],
     care: {
       sowDepth: "2–3 cm",
-      spacing: "Rivivali: 10 cm",
+      spacing: "Riviväli: 10 cm",
       watering: "Tasainen",
-      pests: "Harvoin ongelmia",
+      fertilization: "Kompostia keväällä, puutarhan yleislannoite kesäkuussa",
+      pests: "Harvoin ongelmia, tarkkaile lehtitauteja kostealla säällä",
       harvestTip: "Nosta kun 5–8 cm halkaisija",
     },
+    companions: { good: ["Salaatti", "Kesäsipuli"], bad: [] },
+    varieties: "'Detroit Dark Red' tai 'Cylindra'",
   },
   {
     id: "kiinankaali",
@@ -121,17 +145,19 @@ export const crops: Crop[] = [
     dimensions: "1,8 m × 1,0 m",
     soilTempMin: 10,
     phases: [
-      { type: "sow", start: "2026-07-01", end: "2026-07-10" },
-      { type: "grow", start: "2026-07-11", end: "2026-09-14" },
-      { type: "harvest", start: "2026-09-15", end: "2026-10-15" },
+      { type: "sow", start: "07-01", end: "07-10" },
+      { type: "grow", start: "07-11", end: "09-14" },
+      { type: "harvest", start: "09-15", end: "10-15" },
     ],
     care: {
       sowDepth: "1–2 cm",
       spacing: "Väli: 30 cm",
       watering: "Runsas, tasainen",
-      pests: "Kirppa → harso, etanat",
+      fertilization: "Runsaasti kompostia, nokkosliuos 2 vk välein",
+      pests: "Kirppa → harso, etanat → oluansa",
       harvestTip: "Leikkaa koko kerä tyveltä",
     },
+    companions: { good: ["Pinaatti"], bad: [] },
   },
   {
     id: "kesakurpitsa",
@@ -142,17 +168,20 @@ export const crops: Crop[] = [
     dimensions: "1,0 m × 1,0 m",
     soilTempMin: 12,
     phases: [
-      { type: "sow", start: "2026-06-01", end: "2026-06-10" },
-      { type: "grow", start: "2026-06-11", end: "2026-07-31" },
-      { type: "harvest", start: "2026-08-01", end: "2026-09-15" },
+      { type: "sow", start: "06-01", end: "06-10" },
+      { type: "grow", start: "06-11", end: "07-31" },
+      { type: "harvest", start: "08-01", end: "09-15" },
     ],
     care: {
       sowDepth: "2–3 cm",
       spacing: "Väli: 80 cm",
       watering: "Runsas, juurelle",
-      pests: "Härmä → ilmankierto",
+      fertilization: "Runsaasti kompostia, nokkosliuos viikoittain kukinta-aikaan",
+      pests: "Härmä → ilmankierto, vältä lehtien kastelua",
       harvestTip: "Kerää 15–20 cm kokoisena",
     },
+    companions: { good: ["Herneet", "Tilli"], bad: [] },
+    varieties: "'Black Beauty' tai 'Zucchini Elite'",
   },
   {
     id: "kesasipuli",
@@ -164,17 +193,19 @@ export const crops: Crop[] = [
     dimensions: "0,9 m × 1,0 m",
     soilTempMin: 7,
     phases: [
-      { type: "sow", start: "2026-05-15", end: "2026-05-25" },
-      { type: "grow", start: "2026-05-26", end: "2026-06-19" },
-      { type: "harvest", start: "2026-06-20", end: "2026-08-15" },
+      { type: "sow", start: "05-15", end: "05-25" },
+      { type: "grow", start: "05-26", end: "06-19" },
+      { type: "harvest", start: "06-20", end: "08-15" },
     ],
     care: {
       sowDepth: "1 cm",
-      spacing: "Rivivali: 5 cm",
+      spacing: "Riviväli: 5 cm",
       watering: "Kevyt",
-      pests: "Sipulikärpänen → harso",
+      fertilization: "Kompostia keväällä riittää",
+      pests: "Sipulikärpänen → harso, viljele tillin vieressä",
       harvestTip: "Nosta kun varsi kynän paksuinen",
     },
+    companions: { good: ["Porkkanat", "Punajuuret"], bad: ["Herneet"] },
   },
   {
     id: "salaatti",
@@ -186,16 +217,20 @@ export const crops: Crop[] = [
     dimensions: "0,9 m × 0,7 m",
     soilTempMin: 5,
     phases: [
-      { type: "sow", start: "2026-05-15", end: "2026-08-01", label: "Jatkokylvö" },
-      { type: "harvest", start: "2026-06-15", end: "2026-08-31" },
+      { type: "sow", start: "04-20", end: "05-05", label: "Aikaisin kylvö" },
+      { type: "sow", start: "05-15", end: "08-01", label: "Jatkokylvö" },
+      { type: "harvest", start: "06-15", end: "08-31" },
     ],
     care: {
       sowDepth: "0,5 cm",
-      spacing: "Rivivali: 15 cm",
+      spacing: "Riviväli: 15 cm",
       watering: "Kevyt, usein",
-      pests: "Etanat → oluansa",
+      fertilization: "Kevästi kompostia, ei raskasta lannoitusta",
+      pests: "Etanat → oluansa, tarkkaile lehtihometta",
       harvestTip: "Leikkaa aamuisin, rapein",
     },
+    companions: { good: ["Retiisit", "Porkkanat", "Herneet"], bad: [] },
+    varieties: "'Grand Rapids' tai 'Lollo Rossa'",
   },
   {
     id: "retiisit",
@@ -206,16 +241,42 @@ export const crops: Crop[] = [
     dimensions: "0,9 m × 0,7 m",
     soilTempMin: 5,
     phases: [
-      { type: "sow", start: "2026-05-15", end: "2026-05-25" },
-      { type: "grow", start: "2026-05-26", end: "2026-06-09" },
-      { type: "harvest", start: "2026-06-10", end: "2026-06-30" },
+      { type: "sow", start: "04-20", end: "05-05", label: "Aikaisin kylvö" },
+      { type: "sow", start: "05-15", end: "05-25" },
+      { type: "grow", start: "05-26", end: "06-09" },
+      { type: "harvest", start: "06-10", end: "06-30" },
     ],
     care: {
       sowDepth: "1–2 cm",
-      spacing: "Rivivali: 3 cm",
+      spacing: "Riviväli: 3 cm",
       watering: "Tasainen",
-      pests: "Kirppa → harso",
+      fertilization: "Ei tarvitse lisälannoitusta",
+      pests: "Kirppa → harso, kastelulla ehkäistävän kuivuusstressin",
       harvestTip: "Nosta 3–4 vk jälkeen",
+    },
+    companions: { good: ["Salaatti", "Herneet"], bad: [] },
+    secondCrop: "retiisi-syksy",
+  },
+  {
+    id: "retiisi-syksy",
+    name: "Retiisi → Pinaatti",
+    initial: "R→P",
+    color: "#3B7A57",
+    area: { col: [10, 19], row: [34, 41] },
+    dimensions: "0,9 m × 0,7 m (sama penkki)",
+    soilTempMin: 5,
+    phases: [
+      { type: "sow", start: "07-01", end: "07-10", label: "Syyskylvö" },
+      { type: "grow", start: "07-11", end: "08-20" },
+      { type: "harvest", start: "08-21", end: "09-30" },
+    ],
+    care: {
+      sowDepth: "1–2 cm",
+      spacing: "Riviväli: 10 cm",
+      watering: "Tasainen kosteus",
+      fertilization: "Kompostia kylvöön",
+      pests: "Harvoin ongelmia, tarkkaile lehtitauteja kostealla säällä",
+      harvestTip: "Leikkaa ulkolehdet, sydän kasvaa",
     },
   },
   {
@@ -227,17 +288,20 @@ export const crops: Crop[] = [
     dimensions: "1,4 m × 0,7 m",
     soilTempMin: 12,
     phases: [
-      { type: "sow", start: "2026-06-01", end: "2026-06-10" },
-      { type: "grow", start: "2026-06-11", end: "2026-07-19" },
-      { type: "harvest", start: "2026-07-20", end: "2026-08-31" },
+      { type: "sow", start: "06-01", end: "06-10" },
+      { type: "grow", start: "06-11", end: "07-19" },
+      { type: "harvest", start: "07-20", end: "08-31" },
     ],
     care: {
       sowDepth: "3–5 cm",
-      spacing: "Rivivali: 15 cm",
+      spacing: "Riviväli: 15 cm",
       watering: "Kohtuullinen",
-      pests: "Kirva",
+      fertilization: "Kuten herneet — sitoo typpeä, ei tarvetta",
+      pests: "Kirva → saippuavesiruiskutus, tarkista lehdet alta",
       harvestTip: "Poimi ennen siementen pullistumista",
     },
+    companions: { good: ["Kesäkurpitsa", "Porkkanat"], bad: ["Kesäsipuli"] },
+    varieties: "'Provider' tai 'Contender'",
   },
   {
     id: "tilli",
@@ -245,20 +309,68 @@ export const crops: Crop[] = [
     initial: "T",
     color: "#B7D96A",
     textColor: "#2d5016",
-    area: { col: [36, 41], row: [34, 41] },
-    dimensions: "0,5 m × 0,7 m",
+    area: { col: [36, 41], row: [34, 39] },
+    dimensions: "0,5 m × 0,5 m",
     soilTempMin: 5,
     phases: [
-      { type: "sow", start: "2026-05-20", end: "2026-05-31" },
-      { type: "grow", start: "2026-06-01", end: "2026-06-19" },
-      { type: "harvest", start: "2026-06-20", end: "2026-08-31" },
+      { type: "sow", start: "04-20", end: "05-05", label: "Aikaisin kylvö" },
+      { type: "sow", start: "05-20", end: "05-31" },
+      { type: "grow", start: "06-01", end: "06-19" },
+      { type: "harvest", start: "06-20", end: "08-31" },
     ],
     care: {
       sowDepth: "0,5 cm",
       spacing: "Hajallaan",
       watering: "Kevyt",
-      pests: "Ei yleensä",
-      harvestTip: "Leikkaa tarpeen mukaan",
+      fertilization: "Ei tarvitse lannoitusta",
+      pests: "Ei yleensä — karkottaa tuholaisia naapurikasveilta",
+      harvestTip: "Leikkaa tarpeen mukaan, kukinto hyödyksi säilöntään",
     },
+    companions: { good: ["Porkkanat", "Kesäkurpitsa"], bad: [] },
+  },
+  {
+    id: "persilja",
+    name: "Persilja",
+    initial: "Pe",
+    color: "#4A7C59",
+    area: { col: [36, 39], row: [39, 41] },
+    dimensions: "0,3 m × 0,2 m",
+    soilTempMin: 5,
+    phases: [
+      { type: "sow", start: "05-10", end: "05-25" },
+      { type: "grow", start: "05-26", end: "06-30" },
+      { type: "harvest", start: "07-01", end: "09-30" },
+    ],
+    care: {
+      sowDepth: "1 cm",
+      spacing: "Väli: 15 cm",
+      watering: "Tasainen kosteus",
+      fertilization: "Kompostia istutukseen",
+      pests: "Harvoin ongelmia",
+      harvestTip: "Leikkaa uloimmat varret, sydän kasvaa",
+    },
+    companions: { good: ["Porkkanat", "Tilli"], bad: [] },
+  },
+  {
+    id: "ruohosipuli",
+    name: "Ruohosipuli",
+    initial: "Rs",
+    color: "#6B9E3A",
+    area: { col: [39, 41], row: [39, 41] },
+    dimensions: "0,2 m × 0,2 m",
+    soilTempMin: 3,
+    phases: [
+      { type: "grow", start: "05-01", end: "05-14", label: "Herää kasvuun" },
+      { type: "harvest", start: "05-15", end: "09-30" },
+    ],
+    care: {
+      sowDepth: "Monivuotinen — ei kylvöä",
+      spacing: "Jaa juurakko 3 v välein",
+      watering: "Kevyt kastelu",
+      fertilization: "Kompostia keväällä",
+      pests: "Ei tuholaisia — karkottaa kiroja",
+      harvestTip: "Leikkaa 3 cm maanpinnan yläpuolelta",
+    },
+    companions: { good: ["Porkkanat", "Salaatti"], bad: [] },
   },
 ];

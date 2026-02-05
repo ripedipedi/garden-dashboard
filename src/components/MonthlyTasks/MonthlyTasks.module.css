@@ -16,6 +16,7 @@
 }
 
 .header {
+  width: 100%;
   padding: 0.6rem 1rem;
   color: #fff;
   font-weight: 700;
@@ -24,6 +25,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: none;
+  font-family: inherit;
+  text-align: left;
+}
+
+.header:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
 }
 
 .spring { background: #4caf50; }
@@ -49,14 +58,34 @@
 }
 
 .item {
-  padding: 0.15rem 0;
-  padding-left: 1.4rem;
-  position: relative;
+  padding: 0.2rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  transition: opacity 0.2s;
 }
 
-.item::before {
-  content: '☐';
-  position: absolute;
-  left: 0;
+.item.done {
+  opacity: 0.5;
+}
+
+.checkbox {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  line-height: 1;
   color: #999;
+  flex-shrink: 0;
+}
+
+.checkbox:focus-visible {
+  outline: 2px solid var(--alert-sow);
+  outline-offset: 1px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  color: var(--text-light);
 }

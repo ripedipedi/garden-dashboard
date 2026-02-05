@@ -6,6 +6,7 @@ export interface WeatherData {
   current: {
     temperature: number;
     soilTemp: number;
+    windSpeed: number;
   };
   hourlyTemps: number[];
   dailyPrecipitation: number[];
@@ -18,11 +19,11 @@ export async function fetchWeather(): Promise<WeatherData> {
   const params = new URLSearchParams({
     latitude: String(LAT),
     longitude: String(LON),
-    hourly: "temperature_2m,soil_temperature_6cm",
+    hourly: "temperature_2m,soil_temperature_6cm,windspeed_10m",
     daily: "temperature_2m_min,temperature_2m_max,precipitation_sum",
     forecast_days: "7",
     timezone: "Europe/Helsinki",
-    current: "temperature_2m",
+    current: "temperature_2m,windspeed_10m",
   });
 
   const res = await fetch(`${BASE}?${params}`);
@@ -35,6 +36,7 @@ export async function fetchWeather(): Promise<WeatherData> {
     current: {
       temperature: data.current.temperature_2m,
       soilTemp: data.hourly.soil_temperature_6cm?.[nowHour] ?? 0,
+      windSpeed: data.current.windspeed_10m ?? 0,
     },
     hourlyTemps: data.hourly.temperature_2m ?? [],
     dailyPrecipitation: data.daily.precipitation_sum ?? [],

@@ -1,8 +1,16 @@
 import type { Crop, Phase } from "../data/crops";
 
+/** Resolve a "MM-DD" string to a Date in the given year (defaults to current year) */
+export function resolveDate(mmdd: string, year?: number): Date {
+  const y = year ?? new Date().getFullYear();
+  const [month, day] = mmdd.split("-").map(Number);
+  return new Date(y, month - 1, day);
+}
+
 export function isInRange(date: Date, start: string, end: string): boolean {
   const d = stripTime(date);
-  return d >= new Date(start) && d <= new Date(end);
+  const y = d.getFullYear();
+  return d >= resolveDate(start, y) && d <= resolveDate(end, y);
 }
 
 export function stripTime(date: Date): Date {
@@ -17,8 +25,9 @@ export function getCurrentPhase(crop: Crop, today: Date): Phase | null {
 }
 
 export function getOverallProgress(crop: Crop, today: Date): number {
-  const allStart = new Date(crop.phases[0].start);
-  const allEnd = new Date(crop.phases[crop.phases.length - 1].end);
+  const y = today.getFullYear();
+  const allStart = resolveDate(crop.phases[0].start, y);
+  const allEnd = resolveDate(crop.phases[crop.phases.length - 1].end, y);
   const t = stripTime(today).getTime();
   if (t < allStart.getTime()) return 0;
   if (t > allEnd.getTime()) return 1;

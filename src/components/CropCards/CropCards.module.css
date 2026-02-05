@@ -16,16 +16,28 @@
 .card {
   background: var(--bg-card);
   border-radius: 8px;
-  padding: var(--space-md);
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   border-left: 5px solid;
-  cursor: pointer;
+  overflow: hidden;
 }
 
 .cardHeader {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-md);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+}
+
+.cardHeader:focus-visible {
+  outline: 2px solid var(--alert-sow);
+  outline-offset: -2px;
 }
 
 .name {
@@ -45,11 +57,11 @@
   font-size: 0.65rem;
   font-weight: 600;
   color: #fff;
+  flex-shrink: 0;
 }
 
 .details {
-  margin-top: var(--space-sm);
-  padding-top: var(--space-sm);
+  padding: 0 var(--space-md) var(--space-md);
   border-top: 1px solid #eee;
   font-size: var(--text-sm);
 }
@@ -62,4 +74,12 @@
 
 .details dd {
   color: #555;
+}
+
+.good {
+  color: var(--alert-sow);
+}
+
+.bad {
+  color: var(--alert-frost);
 }
